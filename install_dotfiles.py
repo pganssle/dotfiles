@@ -200,7 +200,6 @@ if __name__ == "__main__":
 
         backup_list = get_move_list(backup_dir, include_files, ignore_symlinks=True)
         copy_files(backup_list, symlink=False)
-        print(backup_list)
 
     if not args.copy:
         move_list = get_move_list(dest_dir, include_files, ignore_symlinks=True)
