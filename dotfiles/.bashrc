@@ -83,7 +83,26 @@ UNDERLINE=$(tput smul)
 reset="$(tput sgr0)"
 export GITCOLOR="${RED}"
 
-source ~/local/libexec/git-prompt.sh
+# Find the first matching location for git-prompt and git-completion
+# and source it
+GIT_PROMPT_LOCS=("$HOME/local/libexec/git-prompt.sh" "/usr/share/git/completion/git-prompt.sh" "/usr/share/git/git-prompt.sh")
+GIT_COMPLETION_LOCS=("$HOME/local/libexec/git-completion.bash" "/usr/share/git/completion/git-completion.bash")
+
+git_prompt_found=false
+for GIT_PROMPT_LOC in ${GIT_PROMPT_LOCS[@]}; do
+    if [[ -f "$GIT_PROMPT_LOC" ]]; then
+        source "$GIT_PROMPT_LOC"
+        git_prompt_found=true
+        break
+    fi
+done
+
+for GIT_COMPLETION_LOC in ${GIT_COMPLETION_LOCS[@]}; do
+    if [[ -f "$GIT_COMPLETION_LOC" ]]; then
+        source "$GIT_COMPLETION_LOC"
+        break
+    fi
+done
 
 export PS1COLOR="${GREEN}${BOLD}"
 export MAXPS1CHARS=20
@@ -92,9 +111,15 @@ if (length($0) > 20) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF;
 else if (NF>3) print $1 "/" $2 "/.../" $NF;
 else print $1 "/.../" $NF; }
 else print $0;}'"'"')'
-PS1='[$(__git_ps1 "\[${GITCOLOR}\]%s\[${reset}\]@")\[${PS1COLOR}\]$(eval "echo -en ${MYPS}")\[${reset}\]]$ '
 
-source ~/local/libexec/git-completion.bash
+if [ "$git_prompt_found" = true ]; then 
+    PS1='[$(__git_ps1 "\[${GITCOLOR}\]%s\[${reset}\]@")\[${PS1COLOR}\]$(eval "echo -en ${MYPS}")\[${reset}\]]$ '
+else
+    echo "Warning: Git prompt not found"
+    PS1='[\[${PS1COLOR}\]$(eval "echo -en ${MYPS}")\[${reset}\]]$ '
+fi
+
+unset git_prompt_found
 
 # if [ "$color_prompt" = yes ]; then
 #     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
