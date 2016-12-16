@@ -1,0 +1,7 @@
+# Backup files automatically generated
+backup/
+
+# Python detritus
+__pycache__
+*.pyo
+*.pyc
