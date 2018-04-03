@@ -23,3 +23,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Source the "local" version
+if [ -e ${HOME}/.bashrc.local ]; then
+    source ${HOME}/.bashrc.local
+fi
