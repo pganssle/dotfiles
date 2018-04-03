@@ -4,6 +4,9 @@
 
 " Required lines for Vundle.
 filetype off "required
+if !isdirectory(expand('~/.vim/bundle/Vundle.vim'))
+    finish
+endif
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
