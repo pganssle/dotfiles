@@ -1,5 +1,5 @@
 # Backup files automatically generated
-backup/
+/backup/
 
 # Python detritus
 __pycache__
