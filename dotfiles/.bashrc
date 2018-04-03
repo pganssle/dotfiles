@@ -178,3 +178,7 @@ if command -v ruby 1>/dev/null 2>&1; then
     export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 fi
 
+# Source the "local" version
+if [ -e ${HOME}/.bashrc.local ]; then
+    source ${HOME}/.bashrc.local
+fi

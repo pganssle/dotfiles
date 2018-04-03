@@ -58,3 +58,7 @@ endif
 " Line guides
 set cc=80,100
 
+" Source local override file if one exists.
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
