@@ -160,3 +160,21 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Activate virtualenvwrapper
+if command -v virtualenvwrapper.sh 1>/dev/null 2>&1; then
+    source virtualenvwrapper.sh
+fi
+
+# Set up pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
+# Set up ruby gems
+if command -v ruby 1>/dev/null 2>&1; then
+    export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
+fi
+
