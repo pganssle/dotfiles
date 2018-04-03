@@ -104,14 +104,20 @@ def copy_files(move_list, symlink=True, ignore_missing=False):
             else:
                 raise ValueError('Missing base file {}'.format(src))
 
+        if os.path.isdir(src):
+            remove = shutil.rmtree
+            copy = shutil.copytree
+        else:
+            remove = os.remove
+            copy = shutil.copy2
+
         if os.path.exists(dst):
-            os.remove(dst)
-            pass
+            remove(dst)
 
         if symlink:
             os.symlink(src, dst)
         else:
-            shutil.copy2(src, dst)
+            copy(src, dst)
 
 
 if __name__ == "__main__":
