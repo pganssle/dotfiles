@@ -5,3 +5,6 @@ backup/
 __pycache__
 *.pyo
 *.pyc
+.cache
+.hypothesis
+.pytest_cache
