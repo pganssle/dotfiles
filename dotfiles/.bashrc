@@ -162,16 +162,33 @@ if ! shopt -oq posix; then
 fi
 
 # Activate virtualenvwrapper
-if command -v virtualenvwrapper.sh 1>/dev/null 2>&1; then
-    source virtualenvwrapper.sh
+export HAS_VIRTUALENVWRAPPER=false
+if command -v virtualenv 1>/dev/null 2>&1 && \
+   command -v virtualenvwrapper.sh 1>/dev/null 2>&1; then
+    export HAS_VIRTUALENVWRAPPER=true
 fi
 
-# Set up pyenv
+# Set up pyenv - first add it to the PATH and see if it worked
+export PYENV_ROOT="$HOME/.pyenv"
+OLD_PATH=$PATH
+export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
+
+    # Check if pyenv virtualenvwrapper is installed
+    if [ "$HAS_VIRTUALENVWRAPPER" = true ] && \
+       pyenv commands | grep -x virtualenvwrapper 1>/dev/null 2>&1; then
+        pyenv virtualenvwrapper_lazy
+    fi
+else
+    export PATH=$OLD_PATH
+    unset OLD_PATH
+    unset PYENV_ROOT
+    if [ "$HAS_VIRTUALENVWRAPPER" ]; then
+        source virtualenvwrapper_lazy.sh
+    fi
 fi
+unset HAS_VIRTUALENVWRAPPER
 
 # Set up ruby gems
 if command -v ruby 1>/dev/null 2>&1; then
