@@ -33,3 +33,5 @@ Plugin 'Valloric/YouCompleteMe'
 " Language packs
 Plugin 'sheerun/vim-polyglot'
 call vundle#end() " required
+
+filetype plugin indent on
