@@ -1,0 +1,17 @@
+[push]
+	default = current
+[core]
+	editor = vim
+[alias]
+    lgd = log --oneline --graph --decorate
+    cs = commit -S
+    cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+    change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+    add-remote = "!remote_url=$(git get-remote $@) && git remote add $1 $remote_url && \
+                  echo \"Added remote $remote_url\""
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+[include]
+    # Source local override file if one exist
+    path = ~/.gitconfig.local

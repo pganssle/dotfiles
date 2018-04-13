@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Parse CLI arguments
+REGEXES=()
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+    key=$1
+    case $key in
+        -r|--regex)
+            REGEXES+=("$2")
+            shift; shift; ;;
+        -b|--branch)
+            BRANCHES+=("$2")
+            shift; shift; ;;
+        *)
+            # First positional argument is the remote name
+            if [ -z $remote ]; then
+                remote=$1
+            else
+                BRANCHES+=("$1")
+            fi
+            shift; ;;
+    esac
+done;
+
+# Add default values to the CLI
+BRANCHES+=('upstream')
+BRANCHES+=('origin')
+
+REGEXES+=('(git@github.com:)[^\/]+')
+REGEXES+=('(https:\/\/github.com\/)[^\/]+')
+
+# Find the base url of the first valid branch
+for rname in ${BRANCHES[@]}; do
+    if url=$(git remote get-url $rname 2>/dev/null); then
+        base_url=$url
+        break
+    fi
+done
+
+if [ -z $base_url ]; then
+    echo "Failed to find a valid branch"
+    exit -1
+fi
+
+for regex in ${REGEXES[@]}; do
+    output=$(echo $base_url | sed -rn s/$regex/\\1$remote/p)
+    if [ ! -z $output ]; then
+        echo $output
+        exit 0
+    fi
+done
+echo "No matching regular expressions for $base_url"
+exit -2
+
