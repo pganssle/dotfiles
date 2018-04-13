@@ -6,9 +6,11 @@ if has('syntax') && !exists('g:syntax_on')
     syntax on
 endif
 
+
 " Color scheme
 colorscheme pg-monokai
 
+set termguicolors
 let python_highlight_all = 1
 
 "Information on the following settings can be found with
