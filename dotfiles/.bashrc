@@ -195,6 +195,11 @@ if command -v ruby 1>/dev/null 2>&1; then
     export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 fi
 
+# Add bash scripts to the path
+if [ -d "$HOME/.bash_scripts" ]; then
+    export PATH="$PATH:$HOME/.bash_scripts"
+fi
+
 # Source the "local" version
 if [ -e ${HOME}/.bashrc.local ]; then
     source ${HOME}/.bashrc.local
