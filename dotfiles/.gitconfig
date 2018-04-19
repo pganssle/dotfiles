@@ -9,6 +9,7 @@
     change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
     add-remote = "!remote_url=$(git get-remote $@) && git remote add $1 $remote_url && \
                   echo \"Added remote $remote_url\""
+    rebase-sign = rebase --exec 'git commit --amend --no-edit -n -S' -i 
 [merge]
     tool = vimdiff
     conflictstyle = diff3
