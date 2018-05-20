@@ -31,6 +31,10 @@ set backspace=indent,eol,start
 
 set pastetoggle=<F2>
 
+" Window title
+set title
+let &titlestring = '[VIM] %t (%{expand("%:p:~:h")})'
+
 " Backup
 set backup
 set backupdir=~/.vim/tmp/backup
@@ -59,6 +63,36 @@ endif
 
 " Line guides
 set cc=80,100
+
+""""""""""""""
+" Key bindings
+"
+" Make it so Ctrl-U and Ctrl-W in insert mode are recoverable
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
+
+" F1 to see what syntax highlighting is applied
+nm <silent> <F1> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
+    \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+    \ . ">"<CR>
+
+" Open undotree with F4
+nnoremap <F4> :UndotreeToggle<cr>
+
+" Set up org mode
+if filereadable(expand("~/.org/org.vim"))
+    source ~/.org/org.vim
+endif
+
+""""""""""""""
+" Plugin settings
+
+" ale
+
+let g:ale_lint_on_text_changed = 0      " Lint only on save
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
 
 " Source local override file if one exists.
 if filereadable(expand("~/.vimrc.local"))
