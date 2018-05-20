@@ -120,18 +120,17 @@ else
 fi
 
 unset git_prompt_found
-
-# if [ "$color_prompt" = yes ]; then
-#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# else
-#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-# fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# If this is an xterm set the title to dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    function virtualenv_info() {
+        # Get current virtual env
+        [ $VIRTUAL_ENV ] && echo -n "(${VIRTUAL_ENV##*/}) "
+    }
+
+    PS1='\[\e]0;$(virtualenv_info)\w\a\]'$PS1
     ;;
 *)
     ;;
@@ -198,6 +197,12 @@ fi
 # Add bash scripts to the path
 if [ -d "$HOME/.bash_scripts" ]; then
     export PATH="$PATH:$HOME/.bash_scripts"
+fi
+
+
+# Add local scripts to the path
+if [ -d "$HOME/local/bin" ]; then
+    export PATH="$PATH:$HOME/local/bin"
 fi
 
 # Source the "local" version
