@@ -41,9 +41,5 @@ hi pythonBinNumber guifg=#3187f0 guibg=NONE gui=NONE ctermfg=69 ctermbg=NONE cte
 hi pythonFloat guifg=#3187f0 guibg=NONE gui=NONE ctermfg=69 ctermbg=NONE cterm=NONE
 hi pythonBuiltinObj guifg=#5eb9c4 guibg=NONE gui=bold ctermfg=74 ctermbg=NONE cterm=bold
 hi pythonBuiltinFunc guifg=#bcbcbc guibg=NONE gui=NONE ctermfg=250 ctermbg=NONE cterm=NONE
-
-
-syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?"""+ end=+"""+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
-syn region pythonDocstring  start=+^\s*[uU]\?[rR]\?'''+ end=+'''+ keepend excludenl contains=pythonEscape,@Spell,pythonDoctest,pythonDocTest2,pythonSpaceError
-
 hi pythonDocstring guifg=#218B97 guibg=NONE gui=NONE ctermfg=25 ctermbg=NONE cterm=NONE
+
