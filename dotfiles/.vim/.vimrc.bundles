@@ -17,11 +17,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'w0rp/ale'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'Raimondi/delimitMate'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'mbbill/undotree'
+
+" Task management
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
 
 " Programming
 Plugin 'a.vim'
