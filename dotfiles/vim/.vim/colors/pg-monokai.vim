@@ -43,3 +43,4 @@ hi pythonBuiltinObj guifg=#5eb9c4 guibg=NONE gui=bold ctermfg=74 ctermbg=NONE ct
 hi pythonBuiltinFunc guifg=#bcbcbc guibg=NONE gui=NONE ctermfg=250 ctermbg=NONE cterm=NONE
 hi pythonDocstring guifg=#218B97 guibg=NONE gui=NONE ctermfg=25 ctermbg=NONE cterm=NONE
 
+hi SpellBad gui=undercurl guifg=#ff0000 guibg=NONE ctermfg=196 ctermbg=NONE cterm=underline

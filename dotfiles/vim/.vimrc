@@ -94,6 +94,10 @@ let g:ale_lint_on_text_changed = 0      " Lint only on save
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 
+
+" ft-bash-syntax
+let g:is_bash = 1
+
 " Source local override file if one exists.
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
