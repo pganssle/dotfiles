@@ -8,7 +8,7 @@ vim
 )
 
 # Create ~/.vim so it doesn't end up as a symlink
-if [ ! -d "~/.vim" ]; then
+if [ ! -d "${HOME}/.vim" ]; then
     mkdir ~/.vim
 fi
 
