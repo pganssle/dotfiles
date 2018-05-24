@@ -5,6 +5,7 @@ readonly PACKAGES=(
 bash
 git
 vim
+emacs
 )
 
 # Create ~/.vim so it doesn't end up as a symlink

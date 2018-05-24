@@ -1,0 +1,27 @@
+;; -*- mode: emacs-lisp -*-
+;; Manually edited portion of ~/.spacemacs
+
+;; Set TODO states
+(setq org-todo-keywords
+    '((sequence
+        "TODO(t)"
+        "ACTIVE(a)"
+        "|"
+        "DONE(d)"
+        "CANCELED(c)"
+)))
+
+(setq org-todo-keyword-faces
+    '(("ACTIVE" (:inherit org-todo :foreground "light blue"))
+      ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
+))
+
+(load-library "find-lisp")
+(setq org-agenda-files
+   (find-lisp-find-files "~/.org" "\.org$"))
+
+(defun load-conditional (fpath)
+  (if (file-exists-p fpath) (load fpath))
+)
+
+(load-conditional "~/.spacemacs.user.local")
