@@ -31,6 +31,9 @@ set backspace=indent,eol,start
 
 set pastetoggle=<F2>
 
+set foldmethod=syntax
+set foldlevelstart=99    " Open all folds by default
+
 " Window title
 set title
 let &titlestring = '[VIM] %t (%{expand("%:p:~:h")})'
@@ -97,6 +100,13 @@ let g:ale_lint_on_save = 1
 
 " ft-bash-syntax
 let g:is_bash = 1
+
+
+"""""""""""""""""
+" File types
+
+" Emacs lisp
+au BufRead,BufNewFile .spacemacs* setf lisp
 
 " Source local override file if one exists.
 if filereadable(expand("~/.vimrc.local"))
