@@ -1,7 +1,7 @@
 [push]
-	default = current
+    default = current
 [core]
-	editor = vim
+    editor = vim
 [alias]
     lgd = log --oneline --graph --decorate
     cs = commit -S
