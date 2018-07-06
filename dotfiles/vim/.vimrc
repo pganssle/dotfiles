@@ -31,8 +31,11 @@ set backspace=indent,eol,start
 
 set pastetoggle=<F2>
 
-set foldmethod=syntax
+set foldmethod=indent    " `syntax` is currently unbearably slow
 set foldlevelstart=99    " Open all folds by default
+
+set wildmode=longest,list,full  " Bash-like completion + tab with cycling
+set wildmenu
 
 " Window title
 set title
