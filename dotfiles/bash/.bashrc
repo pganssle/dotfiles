@@ -123,19 +123,37 @@ fi
 unset git_prompt_found
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to dir
-case "$TERM" in
-xterm*|rxvt*)
-    function virtualenv_info() {
-        # Get current virtual env
-        [ $VIRTUAL_ENV ] && echo -n "(${VIRTUAL_ENV##*/}) "
-    }
+# Enable customization of window title in local files
+export BASE_PS1=${PS1}
 
-    PS1='\[\e]0;$(virtualenv_info)\w\a\]'$PS1
-    ;;
-*)
-    ;;
-esac
+function expand_ps1() {
+    # This adds custom expansions under the \C{} command
+
+    # - \C{venv} -> Current virtual environment
+    # If VIRTUAL_ENV exists, it should be rendered as '(<venv>) '
+    venv_info='${VIRTUAL_ENV:+(}${VIRTUAL_ENV##*/}${VIRTUAL_ENV:+) }'
+    out=${1/\\C\{venv\}/${venv_info}}
+
+    echo $out
+}
+
+
+function set_title() {
+    # This adds some custom expansions under the \C{} command
+
+    # If this is an xterm set the title to dir
+    case "$TERM" in
+    xterm*|rxvt*)
+        PS1='\[\e]0;'$(expand_ps1 ${1})'\a\]'${BASE_PS1}
+        ;;
+    *)
+        ;;
+    esac
+}
+
+# Set the default window title
+PS1_TITLE='\C{venv}\w'
+set_title $PS1_TITLE
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
