@@ -184,7 +184,7 @@ else
     export PATH=$OLD_PATH
     unset OLD_PATH
     unset PYENV_ROOT
-    if [ "$HAS_VIRTUALENVWRAPPER" ]; then
+    if [ "$HAS_VIRTUALENVWRAPPER" = true ]; then
         source virtualenvwrapper_lazy.sh
     fi
 fi
