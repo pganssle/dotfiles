@@ -105,7 +105,7 @@ for GIT_COMPLETION_LOC in ${GIT_COMPLETION_LOCS[@]}; do
     fi
 done
 
-export PS1COLOR="${GREEN}${BOLD}"
+export PS1COLOR="${GREEN}"
 export MAXPS1CHARS=20
 export MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{
 if (length($0) > 20) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF;
