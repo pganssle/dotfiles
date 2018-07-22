@@ -20,8 +20,3 @@
 (setq org-agenda-files
    (find-lisp-find-files "~/.org" "\.org$"))
 
-(defun load-conditional (fpath)
-  (if (file-exists-p fpath) (load fpath))
-)
-
-(load-conditional "~/.spacemacs.user.local")
