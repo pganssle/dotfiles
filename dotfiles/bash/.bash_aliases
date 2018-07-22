@@ -23,6 +23,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Make new SSH keys - use Curve 25519 with 100 rounds, no comment
+alias ssh-newkey='ssh-keygen -t ed25519 -o -a 100 -C ""'
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
