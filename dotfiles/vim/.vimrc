@@ -49,8 +49,6 @@ set directory=~/.vim/tmp/swap
 " Other
 set encoding=utf-8
 set wildignore+=*.pyc,*.pyo
-set spell
-
 
 if &enc =~ '^u\(tf\|cs\)'   " When running in a Unicode environment,
   set list                  " visually represent certain invisible characters:
