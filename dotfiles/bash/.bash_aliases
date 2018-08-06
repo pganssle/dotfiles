@@ -30,6 +30,10 @@ alias ssh-newkey='ssh-keygen -t ed25519 -o -a 100 -C ""'
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
 
+# Connect a SOCKS proxy
+# TODO: Allow passing through the -D option
+alias connect_socks="ssh -D 1080 -fnN"
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
