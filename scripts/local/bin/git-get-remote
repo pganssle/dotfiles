@@ -29,6 +29,8 @@ BRANCHES+=('origin')
 
 REGEXES+=('(git@github.com:)[^\/]+')
 REGEXES+=('(https:\/\/github.com\/)[^\/]+')
+REGEXES+=('(git@gitlab.com:)[^\/]+')
+REGEXES+=('(https:\/\/gitlab.com\/)[^\/]+')
 
 # Find the base url of the first valid branch
 for rname in ${BRANCHES[@]}; do
