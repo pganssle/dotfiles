@@ -34,6 +34,14 @@ alias getclip="xclip -selection c -o"
 # TODO: Allow passing through the -D option
 alias connect_socks="ssh -D 1080 -fnN"
 
+# Install an optimized python with pyenv
+python_opts="--enable-shared --enable-optimizations "
+python_opts+="-with-computed-gotos --with-lto "
+python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions"
+
+alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
+alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv-install-latest -v"
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
