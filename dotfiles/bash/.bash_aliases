@@ -43,7 +43,7 @@ python_opts+="-with-computed-gotos --with-lto "
 python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions"
 
 alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
-alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv-install-latest -v"
+alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install-latest -v"
 
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
