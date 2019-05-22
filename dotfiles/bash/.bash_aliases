@@ -23,6 +23,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# Search hidden files with rg by default
+alias rg='rg --hidden'
+
 # Make new SSH keys - use Curve 25519 with 100 rounds, no comment
 alias ssh-newkey='ssh-keygen -t ed25519 -o -a 100 -C ""'
 
