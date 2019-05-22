@@ -6,10 +6,11 @@
     lgd = log --oneline --graph --decorate
     cs = commit -S
     cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+    clean-squashes = "!f(){ git checkout -q master && git for-each-ref refs/heads/ '--format=%(refname:short)' | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == '-'* ]] && git branch -D $branch; done ; }; f"
     change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
     add-remote = "!remote_url=$(git get-remote $@) && git remote add $1 $remote_url && \
                   echo \"Added remote $remote_url\""
-    rebase-sign = rebase --exec 'git commit --amend --no-edit -n -S' -i 
+    rebase-sign = rebase --autosquash --exec 'git commit --amend --no-edit -n -S' -i
 [merge]
     tool = vimdiff
     conflictstyle = diff3
