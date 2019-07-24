@@ -39,7 +39,7 @@ alias connect_socks="ssh -D 1080 -fnN"
 
 # Install an optimized python with pyenv
 python_opts="--enable-shared --enable-optimizations "
-python_opts+="-with-computed-gotos --with-lto "
+python_opts+="--with-computed-gotos --with-lto "
 python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions"
 
 alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
