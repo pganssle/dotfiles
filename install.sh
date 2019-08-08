@@ -18,3 +18,4 @@ for pkg in "${PACKAGES[@]}"; do
 done
 
 stow -t ~ scripts
+stow -t ~ config_files
