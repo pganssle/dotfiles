@@ -8,11 +8,13 @@
         "ACTIVE(a)"
         "|"
         "DONE(d)"
+        "AWAITING(w)"
         "CANCELED(c)"
 )))
 
 (setq org-todo-keyword-faces
     '(("ACTIVE" (:inherit org-todo :foreground "light blue"))
+      ("AWAITING" (:inherit org-todo :foreground "#c3c3c3"))
       ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
 ))
 
