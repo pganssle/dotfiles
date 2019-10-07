@@ -75,6 +75,11 @@ set cc=80,100
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 
+" Map F12 to "set filetype to python"
+nnoremap <F12> :set filetype=python<cr>
+
+
+
 " F1 to see what syntax highlighting is applied
 nm <silent> <F1> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
     \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
