@@ -78,6 +78,9 @@ inoremap <c-w> <c-g>u<c-w>
 " Map F12 to "set filetype to python"
 nnoremap <F12> :set filetype=python<cr>
 
+" Map Ctrl + - to "insert em-dash"
+inoremap <c-_> —
+
 
 
 " F1 to see what syntax highlighting is applied
