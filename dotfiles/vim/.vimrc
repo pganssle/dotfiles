@@ -69,8 +69,14 @@ endif
 set cc=80,100
 
 """"""""""""""
+" Commands
+
+" Command to delete all whitespace at the end of lines
+:command DeleteWhitespace %s/\s\+$//g
+
+""""""""""""""
 " Key bindings
-"
+
 " Make it so Ctrl-U and Ctrl-W in insert mode are recoverable
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
