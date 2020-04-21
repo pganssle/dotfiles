@@ -229,6 +229,11 @@ if [ -d "$HOME/local/bin" ]; then
     export PATH="$PATH:$HOME/local/bin"
 fi
 
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$PATH:$HOME/.local/bin"
+fi
+
+
 # Source the "local" version
 if [ -e ${HOME}/.bashrc.local ]; then
     source ${HOME}/.bashrc.local
