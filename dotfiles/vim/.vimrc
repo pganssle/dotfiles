@@ -87,7 +87,9 @@ nnoremap <F12> :set filetype=python<cr>
 " Map Ctrl + - to "insert em-dash"
 inoremap <c-_> —
 
-
+" Move up and down by screen lines
+nnoremap k gk
+nnoremap j gj
 
 " F1 to see what syntax highlighting is applied
 nm <silent> <F1> :echo "<" . synIDattr(synID(line("."),col("."),1),"name")
