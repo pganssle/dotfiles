@@ -1,4 +1,4 @@
-setxkbmap -option caps:none
+setxkbmap -option compose:caps
 
 export GTK_IM_MODULE='uim'  # Instructs the GTK immodule to use uim
 export QT_IM_MODULE='uim'   # Instructs the Qt immodule to use uim
