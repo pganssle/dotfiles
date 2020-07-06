@@ -28,5 +28,5 @@ fi
 # Set NLTK data environment variable
 export NLTK_DATA=.python_meta/nltk_data
 
-# Destroy the monstrosity that is Caps Lock
-setxkbmap -option caps:none
+# Remap CapsLock to an actually useful key: compose
+setxkbmap -option compose:caps
