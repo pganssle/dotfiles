@@ -89,7 +89,7 @@ export GITCOLOR="${RED}"
 
 # Find the first matching location for git-prompt and git-completion
 # and source it
-GIT_PROMPT_LOCS=("$HOME/local/libexec/git-prompt.sh" "/usr/share/git/completion/git-prompt.sh" "/usr/share/git/git-prompt.sh")
+GIT_PROMPT_LOCS=("$HOME/local/libexec/git-prompt.sh" "/usr/share/git/completion/git-prompt.sh" "/usr/share/git/git-prompt.sh" "/etc/bash_completion.d/git-prompt")
 GIT_COMPLETION_LOCS=("$HOME/local/libexec/git-completion.bash" "/usr/share/git/completion/git-completion.bash")
 
 git_prompt_found=false
