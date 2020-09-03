@@ -56,6 +56,10 @@ else
     }
 fi
 
+# Copy the full path of a directory to the clipboard
+copypath() {
+    readlink -m ${1:-.} | head -c -1 | setclip
+}
 
 # Connect a SOCKS proxy
 # TODO: Allow passing through the -D option
