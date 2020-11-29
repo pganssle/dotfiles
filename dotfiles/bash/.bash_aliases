@@ -68,12 +68,18 @@ alias connect_socks="ssh -D 1080 -fnN"
 # Install an optimized python with pyenv
 python_opts="--enable-shared --enable-optimizations "
 python_opts+="--with-computed-gotos --with-lto "
-python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions"
-
-alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
-alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install-latest -v"
+python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions "
 
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
+fi
+
+python_opts+="${LOCAL_PYTHON_COMPILE_OPTIONS} "
+if ! alias pyenv-opt-install >/dev/null 2>&1; then
+    alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
+fi
+
+if ! alias pyenv-opt-install-latest >/dev/null 2>&1; then
+    alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install-latest -v"
 fi
