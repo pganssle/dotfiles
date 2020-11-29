@@ -1,0 +1,45 @@
+# Include the defaults
+include "%L"
+
+# Whitespace
+<Multi_key> <0> <space>                     : "​"  U200B   # ZERO WIDTH SPACE
+
+# Math symbols
+<Multi_key> <asciitilde> <asciitilde>       : "≈"       U2248   # ALMOST EQUAL TO
+<Multi_key> <equal> <asciitilde>            : "≅"       U2245   # APPROXIMATELY EQUAL TO
+<Multi_key> <8> <c>                         : "∝"       U221D   # PROPORTIONAL TO
+
+# Symbols
+<Multi_key> <asciicircum> <t> : "†"
+<Multi_key> <t> <t> : "‡"
+<Multi_key> <bar> <asciicircum>             : "↑"       U2191   # UPWARDS ARROW
+<Multi_key> <bar> <v>                       : "↓"       U2193   # DOWNWARDS ARROW
+<Multi_key> <minus> <less> <greater>        : "↔"       U2194   # LEFT RIGHT ARROW
+<Multi_key> <backslash> <asciicircum>       : "↖"       U2196   # NORTH WEST ARROW
+<Multi_key> <slash> <asciicircum>           : "↗"       U2197   # NORTH EAST ARROW
+<Multi_key> <backslash> <v>                 : "↘"       U2198   # SOUTH EAST ARROW
+<Multi_key> <slash> <v>                     : "↙"       U2199   # SOUTH WEST ARROW
+<Multi_key> <less> <equal>                  : "⇐"       U21D0   # LEFTWARDS DOUBLE ARROW
+<Multi_key> <equal> <greater>               : "⇒"       U21D2   # RIGHTWARDS DOUBLE ARROW
+<Multi_key> <equal> <less> <greater>        : "⇔"       U21D4   # LEFT RIGHT DOUBLE ARROW
+
+# Box drawing characters
+<Multi_key> <b> <minus> <minus>             : "─"       U2500   # BOX DRAWINGS LIGHT HORIZONTAL
+<Multi_key> <b> <bar> <bar>                 : "│"       U2502   # BOX DRAWINGS LIGHT VERTICAL
+<Multi_key> <b> <comma> <minus>             : "┌"       U250C   # BOX DRAWINGS LIGHT DOWN AND RIGHT
+<Multi_key> <b> <minus> <comma>             : "┐"       U2510   # BOX DRAWINGS LIGHT DOWN AND LEFT
+<Multi_key> <b> <apostrophe> <minus>        : "└"       U2514   # BOX DRAWINGS LIGHT UP AND RIGHT
+<Multi_key> <b> <minus> <apostrophe>        : "┘"       U2518   # BOX DRAWINGS LIGHT UP AND LEFT
+<Multi_key> <b> <bar> <minus>               : "├"       U251C   # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+<Multi_key> <b> <minus> <bar>               : "┤"       U2524   # BOX DRAWINGS LIGHT VERTICAL AND LEFT
+<Multi_key> <b> <minus> <t>                 : "┬"       U252C   # BOX DRAWINGS LIGHT DOWN AND HORIZONTAL
+<Multi_key> <b> <minus> <T>                 : "┴"       U2534   # BOX DRAWINGS LIGHT UP AND HORIZONTAL
+<Multi_key> <b> <plus>                      : "┼"       U253C   # BOX DRAWINGS LIGHT VERTICAL AND HORIZONTAL
+
+
+# Emoji
+<Multi_key> <apostrophe> <colon> <D> : "😅"
+<Multi_key> <colon> <P> : "😛"
+<Multi_key> <r> <o> <f> <l> : "🤣"
+<Multi_key> <p> <o> <o> <p>  : "💩"
+<Multi_key> <asterisk> <asterisk> <asterisk>: "✨"
