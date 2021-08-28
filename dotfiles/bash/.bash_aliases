@@ -38,7 +38,7 @@ else
     _CLIPBOARD_DIR="/tmp/clipboard.Y8GUp42BMR"
     _get_clipboard_file() {
         clipboard_path="${_CLIPBOARD_DIR}/clipboard"
-        if [[ -f "$clipboard_path" ]]; then
+        if [[ ! -f "$clipboard_path" ]]; then
             mkdir -p "$_CLIPBOARD_DIR"
             touch "${clipboard_path}"
         fi
