@@ -61,6 +61,21 @@ copypath() {
     readlink -m ${1:-.} | head -c -1 | setclip
 }
 
+# Change directory to a newly created directory
+mkcd() {
+    if [[ $# -eq 0 ]]; then
+        desired_dir=$(mktemp -d)
+    elif [[ $# -ne 1 ]]; then
+        echo "Pass only 0 or 1 argument to mkcd."
+        return 2
+    else
+        desired_dir="$1"
+        mkdir -p "$desired_dir"
+    fi
+
+    cd "$desired_dir"
+}
+
 # Connect a SOCKS proxy
 # TODO: Allow passing through the -D option
 alias connect_socks="ssh -D 1080 -fnN"
