@@ -76,6 +76,20 @@ mkcd() {
     cd "$desired_dir"
 }
 
+# Copy a date (defaults to the current date) to the clipboard, in RFC-3339 format.
+copydate() {
+    if [[ $# -eq 0 ]]; then
+        formatted_date=$(date --rfc-3339='seconds')
+    elif [[ $# -eq 1 ]]; then
+        formatted_date=$(date --rfc-3339='seconds' --date="$1")
+    else
+        echo "Too many arguments specified to copydate, use is copydate [date]"
+        return 2
+    fi
+
+    echo "$formatted_date" | setclip
+}
+
 # Connect a SOCKS proxy
 # TODO: Allow passing through the -D option
 alias connect_socks="ssh -D 1080 -fnN"
