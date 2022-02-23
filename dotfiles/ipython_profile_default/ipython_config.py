@@ -23,6 +23,8 @@ c.InteractiveShell.banner1 = BANNER_TEMPLATE.format(
 # No separator  between output and next input prompt
 c.InteractiveShell.separate_in = ""
 c.TerminalInteractiveShell.confirm_exit = False
+if hasattr(c.TerminalInteractiveShell, "autoformatter"):
+    c.TerminalInteractiveShell.autoformatter = None
 
 # Classic python REPL prompts (e.g. >>>, ...)
 c.TerminalInteractiveShell.prompts_class = "IPython.terminal.prompts.ClassicPrompts"
