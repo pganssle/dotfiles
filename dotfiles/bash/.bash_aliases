@@ -105,6 +105,15 @@ python_opts="--enable-shared --enable-optimizations "
 python_opts+="--with-computed-gotos --with-lto "
 python_opts+="--enable-ipv6 --enable-loadable-sqlite-extensions "
 
+# Activate a virtual environment
+venv-activate() {
+    if [[ $# -eq 1 ]]; then
+        source "${1}/bin/activate"
+    else
+        echo "Must specify exactly one virtual env directory."
+    fi
+}
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
