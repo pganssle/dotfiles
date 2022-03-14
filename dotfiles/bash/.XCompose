@@ -23,6 +23,11 @@ include "%L"
 <Multi_key> <equal> <greater>               : "⇒"       U21D2   # RIGHTWARDS DOUBLE ARROW
 <Multi_key> <equal> <less> <greater>        : "⇔"       U21D4   # LEFT RIGHT DOUBLE ARROW
 
+<Multi_key> <at> <v>                        : "✓"       U2713   # CHECK MARK
+<Multi_key> <at> <at> <v>                   : "✔"       U2714   # HEAVY CHECK MARK
+<Multi_key> <at> <X>                        : "✗"       U2717   # BALLOT X
+<Multi_key> <at> <at> <X>                   : "✘"       U2718   # HEAVY BALLOT X
+
 # Box drawing characters
 <Multi_key> <b> <minus> <minus>             : "─"       U2500   # BOX DRAWINGS LIGHT HORIZONTAL
 <Multi_key> <b> <bar> <bar>                 : "│"       U2502   # BOX DRAWINGS LIGHT VERTICAL
