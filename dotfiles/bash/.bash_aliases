@@ -114,6 +114,93 @@ venv-activate() {
     fi
 }
 
+function auto-orient() {
+    # Automatically re-orient a photo based on its exif data
+    #
+    # Requires exiftool and imagemagick
+
+
+    local inplace=""
+    local quiet=""
+    local strict=""
+    local OPTIND
+
+    while getopts iqs flag
+    do
+        case "${flag}" in
+            i) inplace=true;;
+            q) quiet=true;;
+            s) strict=true;;
+        esac
+    done
+
+    shift $((OPTIND-1))
+
+    if [[ ! -z "$inplace" ]]; then
+        if [[ $# -ne 1 ]]; then
+            echo "Must specify exactly one photo when replacing in place."
+            return 1
+        else
+            local output_location="$1"
+        fi
+    elif [[ -z "$inplace" ]]; then
+        if [[ $# -ne 2 ]]; then
+            echo "Must specify one input and one output photo."
+            return 1
+        else
+            local output_location="$2"
+        fi
+
+    fi
+
+    local photo_location="$1"
+    if [[ -z "$(exiftool $1 | grep -E 'Orientation.*Rotate')" ]]; then
+        if [[ -z "$quiet" ]]; then
+            echo "Photo already oriented correctly: ${photo_location}."
+        fi
+
+        if [[ ! -z "$strict" ]]; then
+            return 1
+        else
+            return 0
+        fi
+    fi
+
+    convert "$photo_location" -auto-orient "$output_location"
+}
+
+function multi-auto-orient () {
+    # Automatically orient multiple image files
+    #
+    # Requires fd, plus all requirements of auto-orient
+    local output=""
+    local flags=""
+    local glob=""
+    local OPTIND
+
+    while getopts o:g: flag; do
+        case "${flag}" in
+            g) glob="${OPTARG}";;
+            o) output="${OPTARG}";;
+        esac
+    done
+
+    if [[ -z "$glob" ]]; then
+        echo "Must specify glob."
+        return 1
+    fi
+
+    fd --glob "$glob" . | while read file; do
+        if [[ ! -z "$output" ]]; then
+            local extension="${file##*.}"
+            local filename="${file%.*}"
+            auto-orient "$file" "${filename}${output}.${extension}"
+        else
+            auto-orient "-i" "$file"
+        fi
+    done
+}
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
