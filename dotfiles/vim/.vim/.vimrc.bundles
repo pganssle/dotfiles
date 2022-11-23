@@ -37,9 +37,6 @@ Plugin 'Valloric/YouCompleteMe'
 " Language packs
 Plugin 'sheerun/vim-polyglot'
 
-" Formatters
-Plugin 'ambv/black'
-
 call vundle#end() " required
 
 

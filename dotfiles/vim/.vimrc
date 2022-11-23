@@ -84,6 +84,9 @@ inoremap <c-w> <c-g>u<c-w>
 " Map F12 to "set filetype to python"
 nnoremap <F12> :set filetype=python<cr>
 
+" Map F3 to "run formatter"
+nnoremap <F3> :ALEFix<cr>
+
 " Map Ctrl + - to "insert em-dash"
 inoremap <c-_> —
 
@@ -113,11 +116,11 @@ endif
 let g:ale_lint_on_text_changed = 0      " Lint only on save
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
+let g:ale_fixers = {"python": ["black", "isort"]}
 
 
 " ft-bash-syntax
 let g:is_bash = 1
-
 
 """""""""""""""""
 " File types
