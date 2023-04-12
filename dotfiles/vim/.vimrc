@@ -116,7 +116,11 @@ endif
 let g:ale_lint_on_text_changed = 0      " Lint only on save
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
-let g:ale_fixers = {"python": ["black", "isort"]}
+let g:ale_fixers = {"python": ["black", "isort"],
+            \       "rust": ["rustfmt"],
+            \       "html": ["tidy"],
+            \       "*": ["remove_trailing_lines", "trim_whitespace"],
+            \       }
 
 
 " ft-bash-syntax
