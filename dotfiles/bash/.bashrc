@@ -234,11 +234,14 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$PATH:$HOME/.local/bin"
 fi
 
-# Add cargo scripts ot the path
+# Add cargo scripts to the path
 if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
+if [ -d "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+fi
 
 # Source the "local" version
 if [ -e ${HOME}/.bashrc.local ]; then
