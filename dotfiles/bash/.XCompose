@@ -40,6 +40,9 @@ include "%L"
 <Multi_key> <b> <minus> <t>                 : "┬"       U252C   # BOX DRAWINGS LIGHT DOWN AND HORIZONTAL
 <Multi_key> <b> <minus> <T>                 : "┴"       U2534   # BOX DRAWINGS LIGHT UP AND HORIZONTAL
 <Multi_key> <b> <plus>                      : "┼"       U253C   # BOX DRAWINGS LIGHT VERTICAL AND HORIZONTAL
+<Multi_key> <b> <slash>                     : "╱"       U2571   # BOX DRAWINGS LIGHT DIAGONAL UPPER RIGHT TO LOWER LEFT
+<Multi_key> <b> <backslash>                 : "╲"       U2572   # BOX DRAWINGS LIGHT DIAGONAL UPPER LEFT TO LOWER RIGHT
+<Multi_key> <b> <X>                         : "╳"       U2573   # BOX DRAWINGS LIGHT DIAGONAL CROSS
 
 
 # Emoji
