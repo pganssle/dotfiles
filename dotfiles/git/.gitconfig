@@ -21,3 +21,5 @@
 [include]
     # Source local override file if one exist
     path = ~/.gitconfig.local
+[init]
+    defaultBranch = main
