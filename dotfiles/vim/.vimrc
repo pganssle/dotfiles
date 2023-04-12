@@ -132,6 +132,10 @@ let g:is_bash = 1
 " Emacs lisp
 au BufRead,BufNewFile .spacemacs* setf lisp
 
+" tox.ini files
+au! BufNewFile,BufRead *.ini setf toxini
+" au BufNewFile,BufRead tox.ini set syntax=dosini
+
 " Source local override file if one exists.
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
