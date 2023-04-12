@@ -23,6 +23,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'mbbill/undotree'
 Plugin 'jlanzarotta/bufexplorer'
 
+" Framework-specific
+Plugin 'robertbasic/vim-hugo-helper'
+
 " Task management
 Plugin 'jceb/vim-orgmode'
 Plugin 'tpope/vim-speeddating'
