@@ -192,6 +192,9 @@ function has_virtualenvwrapper() {
     fi
 }
 
+# Set editor
+export EDITOR=`which vim`
+
 # Set up pyenv - first add it to the PATH and see if it worked
 export PYENV_ROOT="$HOME/.pyenv"
 OLD_PATH=$PATH
