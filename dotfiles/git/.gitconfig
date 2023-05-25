@@ -4,6 +4,7 @@
     ff = only  # Fast-forward only when pulling
 [core]
     editor = vim
+    excludesFile = ~/.global-gitignore
 [alias]
     lgd = log --oneline --graph --decorate
     cs = commit -S
