@@ -22,6 +22,21 @@ shopt -s histappend
 HISTSIZE=-1
 HISTFILESIZE=-1
 
+# Set up atuin for history sync
+
+BASH_PREEXEC_LOCATION=""
+for x in "/usr/share/bash-preexec/bash-preexec.sh" "~/.bash_preexec.sh"; do
+    if [[ -f "$x" ]]; then
+        BASH_PREEXEC_LOCATION="$x";
+        break;
+    fi
+done
+
+if command -v atuin &> /dev/null && [[ ! -z "$BASH_PREEXEC_LOCATION" ]]; then
+    source "$BASH_PREEXEC_LOCATION"
+    eval "$(atuin init bash)"
+fi
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
