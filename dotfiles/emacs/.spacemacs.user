@@ -18,6 +18,10 @@
       ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
 ))
 
+;; Automatically use visual-line-mode in org / text files
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+
 (load-library "find-lisp")
 (setq org-agenda-files
    (find-lisp-find-files "~/.org" "\.org$"))
