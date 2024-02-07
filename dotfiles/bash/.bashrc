@@ -13,7 +13,7 @@ set -o vi
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -137,6 +137,8 @@ else
     echo "Warning: Git prompt not found"
     PS1='[\[${PS1COLOR}\]$(eval "echo -en ${MYPS}")\[${reset}\]]$ '
 fi
+
+PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
 
 unset git_prompt_found
 unset color_prompt force_color_prompt
