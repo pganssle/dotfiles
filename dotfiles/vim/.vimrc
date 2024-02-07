@@ -119,7 +119,8 @@ let g:ale_lint_on_save = 1
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_ers = {"python": ["black", "isort"],
             \       "rust": ["rustfmt"],
-            \       "html": ["tidy"],
+            \       "html": ["html-beautify"],
+            \       "js": ["js-beautify"],
             \       "*": ["remove_trailing_lines", "trim_whitespace"],
             \       }
 
