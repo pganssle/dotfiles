@@ -201,6 +201,14 @@ function multi-auto-orient () {
     done
 }
 
+function yt-download () {
+  # Download youtube videos with embedded metadata and thumbnails
+  # Default to something around 720p, mp4s
+  url="$1"
+  shift
+  yt-dlp "$url" -S "ext,res:720" --embed-subs --add-metadata --embed-thumbnail "$@"
+}
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
