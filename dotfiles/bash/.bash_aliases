@@ -96,6 +96,28 @@ copydate() {
     echo "$formatted_date" | setclip
 }
 
+# Keep the first n(default to 1) lines and pass the rest through grep
+grepn () {
+    num_lines=1
+
+    # Parse flags to extract -n
+    if [[ "$1" =~ -n(=.+)? ]]; then
+        if [[ "$1" == *=* ]]; then
+            num_lines="${1#*=}"
+        else
+            shift
+            num_lines=$1
+        fi
+        if [[ ! $num_lines =~ [0-9]+ ]]; then
+            echo "Invalid number of lines: ${num_lines}";
+            return -1
+        fi
+        shift
+    fi
+
+    tee >(head -n $num_lines) >(tail -n +$((1+$num_lines)) | grep "$@") >/dev/null
+}
+
 # Connect a SOCKS proxy
 # TODO: Allow passing through the -D option
 alias connect_socks="ssh -D 1080 -fnN"
