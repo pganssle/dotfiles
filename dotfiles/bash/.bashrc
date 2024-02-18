@@ -138,8 +138,6 @@ else
     PS1='[\[${PS1COLOR}\]$(eval "echo -en ${MYPS}")\[${reset}\]]$ '
 fi
 
-PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
-
 unset git_prompt_found
 unset color_prompt force_color_prompt
 
@@ -157,7 +155,6 @@ function expand_ps1() {
     echo $out
 }
 
-
 function set_title() {
     # This adds some custom expansions under the \C{} command
 
@@ -174,6 +171,22 @@ function set_title() {
 # Set the default window title
 PS1_TITLE='\C{venv}\w'
 set_title $PS1_TITLE
+
+function _add_to_prompt_command() {
+    # Safely append a command to the PROMPT_COMMAND
+    if [[ -n "$PROMPT_COMMAND" && "${PROMPT_COMMAND: -1}" != ";" ]]; then
+        PROMPT_COMMAND="${PROMPT_COMMAND}; "
+    fi
+    PROMPT_COMMAND="${PROMPT_COMMAND}${1}"
+}
+
+# Append history whenever the prompt is loaded; this makes it so every session
+# merges its history into the main bash_history file, but it does *not* reload
+# the history every time, which means that if you have two sessions in parallel,
+# they will both be putting commands into bash_history, but history search
+# in each session will only cover the shared history of all sessions before
+# the first one started plus the unique history of the session.
+_add_to_prompt_command "history -a"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
