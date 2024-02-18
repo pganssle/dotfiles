@@ -115,10 +115,11 @@ grepn () {
         shift
     fi
 
-    {
-        for (( i=0; i < num_lines; i++)); do IFS= read -r line; printf '%s\n' "$line"; done
-        grep "$@"
-    }
+    for (( i=0; i < num_lines; i++ )); do
+        IFS= read -r line
+        printf '%s\n' "$line"
+    done
+    grep "$@"
 }
 
 # Connect a SOCKS proxy
