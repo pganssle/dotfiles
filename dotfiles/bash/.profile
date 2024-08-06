@@ -30,3 +30,8 @@ export NLTK_DATA=.python_meta/nltk_data
 
 # Remap CapsLock to an actually useful key: compose
 setxkbmap -option compose:caps
+
+# Source the "local" version
+if [ -e ${HOME}/.profile.local ]; then
+    source ${HOME}/.profile.local
+fi
