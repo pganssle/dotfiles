@@ -62,6 +62,9 @@ else
     }
 fi
 
+# Update all aurman packages without confirmation
+alias aurman-update="aurman --sync --refresh --sysupgrade --noconfirm --noedit"
+
 # Copy the full path of a directory to the clipboard
 copypath() {
     readlink -m ${1:-.} | head -c -1 | setclip
