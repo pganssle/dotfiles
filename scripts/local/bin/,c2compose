@@ -7,15 +7,14 @@ fi
 
 COMPOSE_LOCS=(
     "/usr/share/X11/locale/en_US.UTF-8/Compose"
-    "/usr/share/X11/locale/compose.dir"
     "$HOME/.XCompose"
 )
 
 
 if type -P rg 1>/dev/null 2>&1; then
-    GREP="$(type -P rg) --no-line-number"
+    GREP="$(type -P rg) --no-line-number --color=never"
 elif type -P grep 1>/dev/null 2>&1; then
-    GREP="$(type -P grep) -P"
+    GREP="$(type -P grep) -Po --color=never"
 else
     echo "Could not find ripgrep or grep."
     exit 1
@@ -24,21 +23,18 @@ fi
 _find_char() {
     found=0
     for file in "${COMPOSE_LOCS[@]}"; do
-        echo $file;
         if [ ! -f "$file" ]; then
             continue;
         fi
 
-        if $GREP "^[^#].*:[[:space:]]*\"($char)\""; then
+        if $GREP "^[^#].*:[[:space:]]*\"($char)\"" $file; then
             found=1;
         fi
     done
-    exit $found
+    return $found
 }
 
 # Files to search for Compose key sequences
 for char in "$@"; do
-    lines=$(_find_char)
-    echo $lines
-    _find_char "$char" || echo "No key sequence found for '$char'"
+    _find_char "$char" && echo "No key sequence found for '$char'"
 done
