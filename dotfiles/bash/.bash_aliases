@@ -34,6 +34,7 @@ alias rcopy='rsync -aAxuh --info=progress2'
 
 # Make new SSH keys - use Curve 25519 with 100 rounds, no comment
 alias ssh-newkey='ssh-keygen -t ed25519 -o -a 100 -C ""'
+alias ,ssh-newkey=ssh-newkey
 
 # Allow to set clipboard from command line
 if xhost >& /dev/null; then
@@ -61,14 +62,18 @@ else
         cat $(_get_clipboard_file)
     }
 fi
+alias ,setclip="setclip"
+alias ,getclip="getclip"
 
 # Update all aurman packages without confirmation
 alias aurman-update="aurman --sync --refresh --sysupgrade --noconfirm --noedit"
+alias ,aurman-update="aurman-update"
 
 # Copy the full path of a directory to the clipboard
 copypath() {
     readlink -m ${1:-.} | head -c -1 | setclip
 }
+alias ,copypath="copypath"
 
 # Change directory to a newly created directory
 mkcd() {
@@ -84,6 +89,7 @@ mkcd() {
 
     cd "$desired_dir"
 }
+alias ,mkcd="mkcd"
 
 # Copy a date (defaults to the current date) to the clipboard, in RFC-3339 format.
 copydate() {
@@ -98,6 +104,7 @@ copydate() {
 
     echo "$formatted_date" | setclip
 }
+alias ,copydate="copydate"
 
 # Keep the first n(default to 1) lines and pass the rest through grep
 grepn () {
@@ -124,10 +131,12 @@ grepn () {
     done
     grep "$@"
 }
+alias ,grepn="grepn"
 
 # Connect a SOCKS proxy
 # TODO: Allow passing through the -D option
 alias connect_socks="ssh -D 1080 -fnN"
+alias ,connect_socks="connect_socks"
 
 # Install an optimized python with pyenv
 python_opts="--enable-shared --enable-optimizations "
@@ -142,6 +151,7 @@ venv-activate() {
         echo "Must specify exactly one virtual env directory."
     fi
 }
+alias ,venv-activate="venv-activate"
 
 function auto-orient() {
     # Automatically re-orient a photo based on its exif data
@@ -197,6 +207,7 @@ function auto-orient() {
 
     convert "$photo_location" -auto-orient "$output_location"
 }
+alias ,auto-orient="auto-orient"
 
 function multi-auto-orient () {
     # Automatically orient multiple image files
@@ -229,6 +240,7 @@ function multi-auto-orient () {
         fi
     done
 }
+alias ,multi-auto-orient="multi-auto-orient"
 
 function yt-download () {
   # Download youtube videos with embedded metadata and thumbnails
@@ -237,6 +249,7 @@ function yt-download () {
   shift
   yt-dlp "$url" -S "ext,res:720" --embed-subs --add-metadata --embed-thumbnail "$@"
 }
+alias ,yt-download="yt-download"
 
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
@@ -246,8 +259,10 @@ fi
 python_opts+="${LOCAL_PYTHON_COMPILE_OPTIONS} "
 if ! alias pyenv-opt-install >/dev/null 2>&1; then
     alias pyenv-opt-install="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install -v"
+    alias ,pyenv-opt-install="pyenv-opt-install"
 fi
 
 if ! alias pyenv-opt-install-latest >/dev/null 2>&1; then
     alias pyenv-opt-install-latest="env PYTHON_CONFIGURE_OPTS=\"${python_opts}\" pyenv install-latest -v"
+    alias ,pyenv-opt-install-latest="pyenv-opt-install-latest"
 fi
