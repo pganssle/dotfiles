@@ -19,8 +19,47 @@
 ))
 
 ;; Automatically use visual-line-mode in org / text files
+;; NOTE: I think this doesn't work
 (add-hook 'text-mode-hook #'visual-line-mode)
 
+;; Move the current line to one of the archival headers
+(defun my/org-move-line-to-state ()
+  "Move the current line to the corresponding header based on its state in the current Org buffer."
+  (interactive)
+  (let ((current-position (point-marker))
+        (line-state nil)
+        (line-cut nil))
+    (save-excursion
+        (beginning-of-line)
+        (when (looking-at "\\** \\(TODO\\|ACTIVE\\|DONE\\|CANCELED\\|AWAITING\\)")
+          (setq line-state (match-string 1))
+          (setq line-cut (buffer-substring (point) (line-beginning-position 2)))
+          (kill-region (point) (line-beginning-position 2))
+          (cond
+           ((string= line-state "AWAITING")
+            (org-next-visible-heading 1)
+            (re-search-forward "^* BLOCKED" nil t)
+            (org-end-of-subtree))
+           ((string= line-state "DONE")
+            (org-next-visible-heading 1)
+            (re-search-forward "^* DONE" nil t)
+            (org-end-of-subtree))
+           ((string= line-state "CANCELED")
+            (org-next-visible-heading 1)
+            (re-search-forward "^* CANCELED" nil t)
+            (org-end-of-subtree))
+           (t
+            (goto-char current-position)
+            (set-marker current-position nil)
+            (message "Line state is not AWAITING, DONE, or CANCELED. No action taken.")
+            (return)))
+          (newline)
+          (insert line-cut)
+          (goto-char current-position)
+          (set-marker current-position nil)))))
+
+;; Bind move-line-to-state to C-c C-a
+(global-set-key (kbd "C-c a") 'my/org-move-line-to-state)
 
 (load-library "find-lisp")
 (setq org-agenda-files
