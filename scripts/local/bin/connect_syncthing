@@ -1,0 +1,44 @@
+#! /usr/bin/bash
+set -e
+
+random_unused_port() {
+    for port in $(shuf -i 7000-9999); do
+        if ! ss -tuln | grep -q :$port; then
+            echo $port
+            return 0
+        fi
+    done
+    return 1
+}
+
+SERVER="${1}"
+if [ -z "${SERVER}" ]; then
+    echo "Must specify argument #1: server address";
+    exit 1;
+fi
+
+LOCAL_PORT="${2:-$(random_unused_port)}"
+REMOTE_PORT="${3:-8384}"
+
+if [ -z "$LOCAL_PORT" ]; then
+    echo "No unused port found."
+    exit 2
+fi
+
+# Start SSH process
+ssh -fnN -L "${LOCAL_PORT}:localhost:${REMOTE_PORT}"  "${SERVER}"\
+    -o ExitOnForwardFailure=yes
+
+# Add SSH process to a file that keeps track of active connections
+SSH_PID=$(lsof -tiTCP:$LOCAL_PORT -sTCP:LISTEN)
+
+PID_DIR='/tmp/connect_syncthing_pids'
+PID_FILE="${PID_DIR}/${SSH_PID}"
+
+mkdir -p "${PID_DIR}"
+
+printf "server=$SERVER\nlocal_port=$LOCAL_PORT\nremote_port=$REMOTE_PORT" > "${PID_FILE}"
+
+echo "SSH port ${LOCAL_PORT} forwarded to ${SERVER}:${REMOTE_PORT}"
+echo "Access syncthing at:"
+echo "  http://localhost:${LOCAL_PORT}/"

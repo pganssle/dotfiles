@@ -1,0 +1,184 @@
+#!/bin/bash -e
+
+# Directory containing PID files
+PID_DIR='/tmp/connect_syncthing_pids'
+
+# Function to clean up files with non-running PIDs
+cleanup_pid_files() {
+    for pid_file in "$PID_DIR"/*; do
+        if [[ -f "$pid_file" ]]; then
+            local pid=$(basename "$pid_file")
+            if ! kill -0 "$pid" 2>/dev/null; then
+                rm "$pid_file"
+            fi
+        fi
+    done
+}
+
+# Function to generate an array of PIDs matching the relevant filters
+get_matching_pids() {
+    local server_filter="$1"
+    local port_filter="$2"
+    local pids=()
+
+    for pid_file in "$PID_DIR"/*; do
+        if [[ -f "$pid_file" ]]; then
+            local pid=$(basename "$pid_file")
+            local server=$(grep '^server=' "$pid_file" | cut -d'=' -f2 | xargs)
+            local local_port=$(grep '^local_port=' "$pid_file" | cut -d'=' -f2 | xargs)
+            local remote_port=$(grep '^remote_port=' "$pid_file" | cut -d'=' -f2 | xargs)
+
+            if [[ -n "$server_filter" && "${server,,}" != "${server_filter,,}" ]]; then
+                continue
+            fi
+            if [[ -n "$port_filter" && "$local_port" != "$port_filter" ]]; then
+                continue
+            fi
+
+            if kill -0 "$pid" 2>/dev/null; then
+                pids+=("$pid_file")
+            fi
+        fi
+    done
+
+    echo "${pids[@]}"
+}
+
+# Function to display a list of processes
+display_processes() {
+    local pids=("$@")
+    local i=1
+
+    if [[ ${#pids[@]} -eq 0 ]]; then
+        echo "No syncthing connections found."
+        return 1
+    fi
+
+    printf "%6s %-8s %-15s %-8s %-8s %-40s\n" "" "PID" "SERVER" "LOCAL" "REMOTE" "LINK"
+
+    local i=1;
+    for pid_file in "${pids[@]}"; do
+        local pid=$(basename "$pid_file")
+        local server=$(grep '^server=' "$pid_file" | cut -d'=' -f2 | xargs)
+        local local_port=$(grep '^local_port=' "$pid_file" | cut -d'=' -f2 | xargs)
+        local remote_port=$(grep '^remote_port=' "$pid_file" | cut -d'=' -f2 | xargs)
+
+        printf "[%4s] %-8d %-15s %-8s %-8s %-40s\n" "$i" "$pid" "$server" "$local_port" "$remote_port" "http://localhost:$local_port/"
+        ((i++))
+    done
+
+    return 0
+
+}
+
+# Function to handle the user’s choice
+handle_choice() {
+    local pids=("$@")
+    read -p "Please select a number, or 'a' to kill all, 'n' to kill none: " choice
+
+    if [[ "$choice" == "a" ]]; then
+        return 0
+    elif [[ "$choice" == "n" ]]; then
+        exit 0
+    elif [[ "$choice" =~ ^[0-9]+$ ]]; then
+        local index=$choice
+        if [[ -n "${pids[$((index - 1))]}" ]]; then
+            echo "${pids[$((index - 1))]}"
+            return 0
+        fi
+    fi
+
+    echo "Invalid choice." &>2
+    exit 1
+}
+
+# Function to kill processes and clean up files
+kill_processes() {
+    local pids=("$@")
+    for pid_file in "${pids[@]}"; do
+        local pid=$(basename "$pid_file")
+        echo "Killing PID $pid"
+        kill "$pid"
+        # Verify if the process has been terminated
+        sleep 0.4
+        if ! kill -0 "$pid" 2>/dev/null; then
+            rm "$pid_file"
+        else
+            echo "Failed to kill PID $pid"
+        fi
+    done
+}
+
+# Parse command-line arguments using getopt
+parse_args() {
+    local options
+    local longopts
+    options="p:s:k"
+    longopts="port:,server:,kill,all"
+
+    # Use getopt to parse arguments
+    PARSED_OPTIONS=$(getopt -o "$options" -l "$longopts" -- "$@")
+    eval set -- "$PARSED_OPTIONS"
+
+    local server_filter=""
+    local port_filter=""
+    local kill_all=0
+    local list_only=1
+
+    while true; do
+        case "$1" in
+            -p|--port)
+                port_filter="$2"
+                shift 2
+                ;;
+            -s|--server)
+                server_filter="$2"
+                shift 2
+                ;;
+            -k|--kill)
+                list_only=0
+                shift
+                ;;
+            --all)
+                kill_all=1
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            *)
+                echo "Invalid option"
+                exit 1
+                ;;
+        esac
+    done
+
+    if [[ "$kill_all" -eq 1 ]] && [[ "$list_only" -eq 1 ]]; then
+        echo "May only specify one of --all and --list"
+        exit 2
+    fi
+
+    local pids=($(get_matching_pids))
+    if [[ "$kill_all" -eq 1 ]]; then
+        if [[ ${#pids[@]} -gt 0 ]]; then
+            kill_processes "${pids[@]}"
+        fi
+    else
+        local pids=($(get_matching_pids "$server_filter" "$port_filter"))
+        display_processes "${pids[@]}"
+
+        if [[ "${list_only}" -eq 0 ]]; then
+            local selected_pid=$(handle_choice "${pids[@]}")
+            if [[ -n "$selected_pid" ]]; then
+                kill_processes "$selected_pid"
+            fi
+        fi
+    fi
+}
+
+# Clean up any stale PID files before processing
+cleanup_pid_files
+
+# Parse and handle command-line arguments
+parse_args "$@"
