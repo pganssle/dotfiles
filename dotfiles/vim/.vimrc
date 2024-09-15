@@ -87,8 +87,9 @@ nnoremap <F12> :set filetype=python<cr>
 " Map F3 to "run formatter"
 nnoremap <F3> :ALEFix<cr>
 
-" Map Ctrl + - to "insert em-dash"
-inoremap <c-_> —
+"Make >, and <, move arguments to the right and left, respectively
+nnoremap <, :SidewaysLeft<cr>
+nnoremap >, :SidewaysRight<cr>
 
 " Move up and down by screen lines
 nnoremap k gk
