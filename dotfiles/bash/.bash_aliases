@@ -64,6 +64,10 @@ else
 fi
 alias ,setclip="setclip"
 alias ,getclip="getclip"
+alias psetclip='tee >(setclip)'  # Set clip and also print
+alias pgetclip='getclip | tee /dev/stderr'  # Get clip and also print to stderr
+alias ,psetclip='psetclip'
+alias ,pgetclip='pgetclip'
 
 # Update all aurman packages without confirmation
 alias aurman-update="aurman --sync --refresh --sysupgrade --noconfirm --noedit"
