@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+#
+# git-autofixup - Finds fixup! commits and rebases automatically
+#
+# Save this file as git-autofixup in your PATH and make it executable:
+# chmod +x git-autofixup
+#
+# Then you can run it as: git autofixup
+
+set -e
+
+# Find all fixup! commits
+FIXUP_COMMITS=$(git log --grep="^fixup\!" --format="%H %s")
+
+if [ -z "$FIXUP_COMMITS" ]; then
+    echo "No fixup! commits found"
+    exit 0
+fi
+
+# Extract unique target commit messages and store in an associative array
+declare -A TARGET_MAP
+while IFS= read -r line; do
+    if [[ $line =~ ^[a-f0-9]+\ fixup\!\ (.*)$ ]]; then
+        TARGET="${BASH_REMATCH[1]}"
+        TARGET_MAP["$TARGET"]=1
+    fi
+done <<< "$FIXUP_COMMITS"
+
+# If no targets found, exit
+if [ ${#TARGET_MAP[@]} -eq 0 ]; then
+    echo "Could not parse any fixup! commit messages"
+    exit 1
+fi
+
+# Find earliest commit that needs to be fixed up
+EARLIEST_HASH=""
+EARLIEST_TARGET=""
+
+for TARGET in "${!TARGET_MAP[@]}"; do
+    # Use git rev-list with --grep to find matching commit
+    # The ^ in the grep pattern is escaped as \^ for the shell
+    MATCHING_HASH=$(git rev-list --all --grep="^$TARGET\$" --max-count=1)
+    
+    if [ -n "$MATCHING_HASH" ]; then
+        # If this is our first match or it's earlier than what we have, update
+        if [ -z "$EARLIEST_HASH" ] || [ $(git rev-list --count $MATCHING_HASH..$EARLIEST_HASH) -gt 0 ]; then
+            EARLIEST_HASH=$MATCHING_HASH
+            EARLIEST_TARGET="$TARGET"
+        fi
+    fi
+done
+
+if [ -z "$EARLIEST_HASH" ]; then
+    echo "Could not find target commits for fixup! commits"
+    exit 1
+fi
+
+# Check if the target commit is the first commit in the branch
+PARENT=$(git rev-parse $EARLIEST_HASH^ 2>/dev/null || echo "")
+IS_ROOT=0
+
+if [ -z "$PARENT" ]; then
+    echo "The commit to be fixed up appears to be the root commit"
+    IS_ROOT=1
+fi
+
+echo "Found earliest fixup target: $EARLIEST_TARGET ($EARLIEST_HASH)"
+
+# Execute the rebase
+if [ $IS_ROOT -eq 1 ]; then
+    echo "Rebasing with --root since target is the first commit"
+    git rebase -i --autosquash --root
+else
+    echo "Rebasing with parent commit $(git rev-parse --short $PARENT)"
+    git rebase -i --autosquash $PARENT
+fi
