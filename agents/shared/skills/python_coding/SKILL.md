@@ -71,3 +71,11 @@ otherwise apply all of these without being asked.
 For libraries,  use modern Python programming idioms to create packages. Prefer
 flit as a build backend and Apache 2.0 as the license.  Do not use dynamic
 versions and read the README.md as the long description.
+
+## Debugging and fixing problems
+
+- Never disable tests to get things passing, except when it is a test that
+  specifically existed to test an interface that is being removed.
+- Always make sure you understand the intention of the code when iterating: you
+  must not change the goals of the thing you are building in order to get the
+  tests to pass.
