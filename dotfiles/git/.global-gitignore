@@ -2,3 +2,7 @@
 .idea/
 gradlew
 gradlew.bat
+
+# Conventions for working with git repos
+.worktrees/          # So I can put worktrees inside the repo
+.misc_local/         # Unified place to put random junk I don't want to check in
