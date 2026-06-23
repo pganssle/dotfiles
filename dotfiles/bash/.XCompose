@@ -22,6 +22,7 @@ include "%L"
 <Multi_key> <less> <equal>                  : "⇐"       U21D0   # LEFTWARDS DOUBLE ARROW
 <Multi_key> <equal> <greater>               : "⇒"       U21D2   # RIGHTWARDS DOUBLE ARROW
 <Multi_key> <equal> <less> <greater>        : "⇔"       U21D4   # LEFT RIGHT DOUBLE ARROW
+<Multi_key> <h> <hyphen> <greater>          : "➜"       U279C   # HEAVY ROUND-TIPPED RIGHT ARROW
 
 <Multi_key> <at> <v>                        : "✓"       U2713   # CHECK MARK
 <Multi_key> <at> <at> <v>                   : "✔"       U2714   # HEAVY CHECK MARK
@@ -43,6 +44,8 @@ include "%L"
 <Multi_key> <b> <slash>                     : "╱"       U2571   # BOX DRAWINGS LIGHT DIAGONAL UPPER RIGHT TO LOWER LEFT
 <Multi_key> <b> <backslash>                 : "╲"       U2572   # BOX DRAWINGS LIGHT DIAGONAL UPPER LEFT TO LOWER RIGHT
 <Multi_key> <b> <X>                         : "╳"       U2573   # BOX DRAWINGS LIGHT DIAGONAL CROSS
+<Multi_key> <b> <greater>                   : "►"       U25BA   # BLACK RIGHT-POINTING ARROW
+<Multi_key> <b> <less>                      : "◄"       U25C4   # BLACK LEFT-POINTING ARROW
 
 
 # Emoji
@@ -51,6 +54,8 @@ include "%L"
 <Multi_key> <r> <o> <f> <l> : "🤣"
 <Multi_key> <p> <o> <o> <p>  : "💩"
 <Multi_key> <asterisk> <asterisk> <asterisk>: "✨"
+<Multi_key> <j> <greater> <greater> : "⏭️"
+<Multi_key> <j> <equal> <greater> : "➡️"
 
 ~/.XCompose
 # GREEK CAPITAL LETTERS
