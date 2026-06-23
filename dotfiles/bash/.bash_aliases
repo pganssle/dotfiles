@@ -255,6 +255,23 @@ function yt-download () {
 }
 alias ,yt-download="yt-download"
 
+get_ia_link() {
+    local url="$1"
+
+    # Normalize URL: strip http:// or https:// and add https://
+    url="${url#http://}"
+    url="${url#https://}"
+    url="https://${url}"
+
+    # Query the Wayback Machine API
+    local response=$(curl -s "https://archive.org/wayback/available?url=${url}")
+
+    # Extract and display the snapshot URL
+    echo "$response" | jq -r '.archived_snapshots.closest.url // "No snapshot found"'
+}
+
+alias ,get_ia_link="get_ia_link"
+
 # Source the "local" version
 if [ -e ${HOME}/.bash_aliases.local ]; then
     source ${HOME}/.bash_aliases.local
