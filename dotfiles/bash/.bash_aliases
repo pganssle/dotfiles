@@ -142,6 +142,9 @@ alias ,grepn="grepn"
 alias connect_socks="ssh -D 1080 -fnN"
 alias ,connect_socks="connect_socks"
 
+# Aliases for longer scripts
+alias ,git-walk-diffs="git-walk-diffs"
+
 # Install an optimized python with pyenv
 python_opts="--enable-shared --enable-optimizations "
 python_opts+="--with-computed-gotos --with-lto "

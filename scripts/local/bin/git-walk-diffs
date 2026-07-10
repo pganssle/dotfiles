@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# git-walk-diffs — step through the commits in a range one at a time, showing
+# the diff between each successive pair so you can review a branch commit by
+# commit instead of as one big squashed diff.
+#
+# Usage: git-walk-diffs <start_ref> <end_ref>
+#   e.g. git-walk-diffs feature_branch main
+#
+# It collects the commits on the ancestry path from <end_ref> to <start_ref>
+# (i.e. the commits in `end_ref..start_ref`), ordered oldest-first, and prepends
+# <end_ref> itself as the base. It then walks consecutive pairs and prints
+# `git diff <parent> <child>` between each — so every frame shows exactly the
+# changes one commit introduced, starting with the oldest commit's diff against
+# <end_ref> and ending with <start_ref>. After every diff it pauses for Enter
+# (or `q` to quit) — except after the last one.
+
+# Function to get list of commits between two refs in reverse order
+get_commits() {
+    local start_ref=$1
+    local end_ref=$2
+    git rev-list --ancestry-path ${end_ref}..${start_ref} | tac
+}
+
+# Check if we have the correct number of arguments
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <start_ref> <end_ref>"
+    echo "Example: $0 feature_branch main"
+    exit 1
+fi
+
+start_ref=$1
+end_ref=$2
+
+# Get the list of commits
+commits=($(get_commits $start_ref $end_ref))
+
+if [ ${#commits[@]} -eq 0 ]; then
+    echo "No commits found between $start_ref and $end_ref"
+    exit 1
+fi
+
+# Add the end_ref to complete the range
+commits+=($(git rev-parse $end_ref))
+
+# Walk through the commits
+for ((i=0; i<${#commits[@]}-1; i++)); do
+    current=${commits[$i]}
+    next=${commits[$((i+1))]}
+
+    echo "Showing diff $((i+1)) of $((${#commits[@]}-1))"
+    echo "From: $(git log -1 --format=%h:%s $next)"
+    echo "To:   $(git log -1 --format=%h:%s $current)"
+    echo "----------------------------------------"
+
+    git diff $current $next
+
+    if [ $i -lt $((${#commits[@]}-2)) ]; then
+        read -p "Press Enter for next diff, q to quit: " input
+        if [ "$input" = "q" ]; then
+            exit 0
+        fi
+    fi
+done
