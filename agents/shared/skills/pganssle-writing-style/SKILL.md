@@ -4,15 +4,15 @@ description: >
   How the user (Paul Ganssle) writes prose — bug reports, issue comments,
   mailing-list / forum posts, PR descriptions, docs. Use this whenever you
   draft or edit text that will be published under his name, so it reads like
-  him and not like an LLM. Pairs with the pganssle-bug-reports skill, which
-  covers how he structures issues specifically.
+  him and not like an LLM. Pairs with other writing style skills tuned for
+  specific contexts like bug reports and commit messages.
 ---
 
 # Writing in Paul's voice
 
-The target: a careful, senior open-source engineer thinking out loud —
-precise, honest about uncertainty, generous to the reader, never inflated. If
-a sentence reads like marketing copy or an LLM summary, cut it or rewrite it.
+The target: a careful, senior professional thinking out loud — precise, honest
+about uncertainty, generous to the reader, never inflated. If a sentence reads
+like marketing copy or an LLM summary, cut it or rewrite it.
 
 ## Voice and register
 - First person, conversational, direct. Openers like "I ran into this
