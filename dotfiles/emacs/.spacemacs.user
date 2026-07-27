@@ -81,3 +81,8 @@
 (setq org-agenda-files
       (find-lisp-find-files "~/.org" "\.org$"))
 
+;; Set image directory
+(setq org-download-image-dir "./images")
+
+;; Enable inline image display
+(setq org-startup-with-inline-images t)
