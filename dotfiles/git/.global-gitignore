@@ -3,6 +3,15 @@
 gradlew
 gradlew.bat
 
+# AIs
+.claude/
+
 # Conventions for working with git repos
-.worktrees/          # So I can put worktrees inside the repo
-.misc_local/         # Unified place to put random junk I don't want to check in
+#
+# So I can put worktrees inside the repo
+.worktrees/
+
+# Unified place to put random junk I don't want to check in
+.misc_local/
+
+**/.claude/settings.local.json
