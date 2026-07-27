@@ -118,6 +118,7 @@ let g:ale_lint_on_text_changed = 0      " Lint only on save
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_virtualtext_cursor = 'disabled'
+let g:ale_linters = { "python": ["ruff"] }
 let g:ale_fixers = {"python": ["black", "isort"],
             \       "rust": ["rustfmt"],
             \       "html": ["html-beautify"],
@@ -125,6 +126,8 @@ let g:ale_fixers = {"python": ["black", "isort"],
             \       "*": ["remove_trailing_lines", "trim_whitespace"],
             \       }
 
+nmap <silent> <leader>aj  <Plug>(ale_next_wrap)
+nmap <silent> <leader>ak  <Plug>(ale_previous_wrap)
 
 " ft-bash-syntax
 let g:is_bash = 1
