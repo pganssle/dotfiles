@@ -23,3 +23,26 @@ stow -d dotfiles -t ~/.ipython/profile_default ipython_profile_default
 
 stow -t ~ scripts
 stow -t ~ config_files
+
+# The contents of agents/ (skills and the like) are not specific to any one
+# coding agent, so the same tree gets stowed into every harness that reads it.
+readonly AGENT_HOMES=(
+"${HOME}/.claude"
+)
+
+for agent_home in "${AGENT_HOMES[@]}"; do
+    for pkg in shared local; do
+        [ -d "agents/${pkg}" ] || continue
+
+        # Create the category directories (skills, agents, ...) up front so
+        # that stow links the individual skills instead of folding the whole
+        # category into a single symlink; the shared and local packages have
+        # to be able to share a directory.
+        for category in "agents/${pkg}"/*/; do
+            [ -d "${category}" ] || continue
+            mkdir -p "${agent_home}/$(basename "${category}")"
+        done
+
+        stow -d agents -t "${agent_home}" "${pkg}"
+    done
+done

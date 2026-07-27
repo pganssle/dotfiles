@@ -11,3 +11,6 @@ __pycache__
 
 # Not synced
 dotfiles/vim/.vim/spell/
+
+# Agent configuration that is deliberately not published
+/agents/local/
