@@ -40,8 +40,8 @@ if [ ${#commits[@]} -eq 0 ]; then
     exit 1
 fi
 
-# Add the end_ref to complete the range
-commits+=($(git rev-parse $end_ref))
+# Prepend the end_ref as the base so the walk starts from the bottom of the range
+commits=($(git rev-parse $end_ref) "${commits[@]}")
 
 # Walk through the commits
 for ((i=0; i<${#commits[@]}-1; i++)); do
@@ -49,11 +49,18 @@ for ((i=0; i<${#commits[@]}-1; i++)); do
     next=${commits[$((i+1))]}
 
     echo "Showing diff $((i+1)) of $((${#commits[@]}-1))"
-    echo "From: $(git log -1 --format=%h:%s $next)"
-    echo "To:   $(git log -1 --format=%h:%s $current)"
+    echo "From: $(git log -1 --format=%h:%s $current)"
+    echo "To:   $(git log -1 --format=%h:%s $next)"
+    echo "----------------------------------------"
+    git log -1 --format=%B $next
     echo "----------------------------------------"
 
     git diff $current $next
+
+    # Blank space to visually separate one diff from the next
+    echo
+    echo
+    echo
 
     if [ $i -lt $((${#commits[@]}-2)) ]; then
         read -p "Press Enter for next diff, q to quit: " input
