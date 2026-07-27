@@ -21,8 +21,8 @@
 [merge]
     tool = vimdiff
     conflictstyle = diff3
+[init]
+    defaultBranch = main
 [include]
     # Source local override file if one exist
     path = ~/.gitconfig.local
-[init]
-    defaultBranch = main
