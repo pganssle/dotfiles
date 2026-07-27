@@ -3,20 +3,20 @@
 
 ;; Set TODO states
 (setq org-todo-keywords
-    '((sequence
-        "TODO(t)"
-        "ACTIVE(a)"
-        "|"
-        "DONE(d)"
-        "AWAITING(w)"
-        "CANCELED(c)"
-)))
+      '((sequence
+         "TODO(t)"
+         "ACTIVE(a)"
+         "|"
+         "DONE(d)"
+         "AWAITING(w)"
+         "CANCELED(c)"
+         )))
 
 (setq org-todo-keyword-faces
-    '(("ACTIVE" (:inherit org-todo :foreground "light blue"))
-      ("AWAITING" (:inherit org-todo :foreground "#c3c3c3"))
-      ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
-))
+      '(("ACTIVE" (:inherit org-todo :foreground "light blue"))
+        ("AWAITING" (:inherit org-todo :foreground "#c3c3c3"))
+        ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
+        ))
 
 ;; Automatically use visual-line-mode in org / text files
 ;; NOTE: I think this doesn't work
@@ -79,5 +79,5 @@
 
 (load-library "find-lisp")
 (setq org-agenda-files
-   (find-lisp-find-files "~/.org" "\.org$"))
+      (find-lisp-find-files "~/.org" "\.org$"))
 
