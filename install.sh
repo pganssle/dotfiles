@@ -7,6 +7,7 @@ git
 vim
 emacs
 tmux
+x11
 )
 
 # Create ~/.vim so it doesn't end up as a symlink

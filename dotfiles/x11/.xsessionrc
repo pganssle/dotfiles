@@ -1,0 +1,7 @@
+# Entry point for Debian's /etc/X11/Xsession, which sources this by way of
+# /etc/X11/Xsession.d/40x11-common_xsessionrc.
+#
+# Note that this is deliberately not ~/.xsession: on Debian that file *is*
+# the session script, and is expected to exec a window manager. One that only
+# sets variables and returns leaves you staring at a blank screen.
+. "${HOME}/.config/x11/session-common.sh"

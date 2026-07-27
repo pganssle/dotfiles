@@ -28,8 +28,13 @@ fi
 # Set NLTK data environment variable
 export NLTK_DATA=.python_meta/nltk_data
 
-# Remap CapsLock to an actually useful key: compose
-setxkbmap -option compose:caps
+# Shared X session config: compose key, input method, ssh agent. Some display
+# managers source ~/.profile as part of starting the session (LightDM's
+# Xsession does), so this is one of the entry points. It returns immediately
+# when there is no X session, as on a tty or over ssh.
+if [ -e "${HOME}/.config/x11/session-common.sh" ]; then
+    . "${HOME}/.config/x11/session-common.sh"
+fi
 
 # Source the "local" version
 if [ -e ${HOME}/.profile.local ]; then

@@ -1,0 +1,4 @@
+# Entry point for display managers -- LightDM, GDM, SDDM -- on Arch and most
+# distributions other than Debian. A desktop environment is in charge of the
+# session here, so X_SESSION_ROLE is deliberately left unset.
+. "${HOME}/.config/x11/session-common.sh"
