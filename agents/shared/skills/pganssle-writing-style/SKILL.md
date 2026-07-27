@@ -175,3 +175,20 @@ lists in a long post read as deliberate where six read as a tic.
 Match effort to the content. Trivial/obvious point: a couple of sentences.
 Subtle or design-laden point: full treatment with options. Never longer than
 the substance justifies.
+
+## The measured fingerprint
+
+If `~/Documents/Notes/writing_corpus/FINGERPRINT.md` exists, read it and apply
+it by default whenever you are writing as him — you do not need to be asked.
+This document describes the voice he is aiming for; that one measures what he
+actually does, derived from his corpus against control corpora of other people
+writing in the same settings. Where the two disagree, the measurement wins on
+mechanics (sentence length, how sentences open, contraction rate by register)
+and this document wins on judgement (what to say, how much to hedge, when to
+shut up). It also records which traits are register-dependent rather than
+constant, which is the part most likely to be got wrong from impression alone.
+
+The same file has a section on writing so as *not* to be identifiable as him.
+Use that only on explicit request — if he asks for something anonymous,
+pseudonymous, or deliberately not in his voice — and follow it in preference to
+everything above, since the two goals are opposites.
