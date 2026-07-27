@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paul's Commit Messages"
+  short_description: "Write commit messages in Paul's style"
+  default_prompt: "Use $pganssle-commit-messages with $pganssle-writing-style to draft a commit message for my staged changes."
