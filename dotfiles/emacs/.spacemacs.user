@@ -99,3 +99,9 @@
 
 ;; Enable inline image display
 (setq org-startup-with-inline-images t)
+
+;; Only ask about opening files "literally" above 20 MB (default is 10 MB).
+;; NOTE: Spacemacs has its *own* separate prompt controlled by
+;; `dotspacemacs-large-file-size' (in MB, default 1) in ~/.spacemacs; that is
+;; the one that fires for multi-megabyte .org files.
+(setq large-file-warning-threshold (* 20 1024 1024))
