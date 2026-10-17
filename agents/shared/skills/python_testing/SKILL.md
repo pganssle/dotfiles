@@ -45,7 +45,10 @@ ones that matter most for tests.
   inheritance to share test setup.
 - Use **`hypothesis`** (property-based testing) wherever it fits — e.g. when a
   property should hold across a wide input space rather than a few hand-picked
-  examples.
+  examples. When writing or reviewing property tests, also use
+  [python-property-testing](../python-property-testing/SKILL.md) for choosing
+  properties, designing strategies, investigating failures, and keeping CI
+  costs reasonable.
 
 ## Style
 
