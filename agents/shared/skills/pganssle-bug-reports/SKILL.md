@@ -52,6 +52,9 @@ structure below yourself.
    stack, OS, and language version — at the end, or in the template fields.
 
 ## Formatting conventions
+- For bug reports and PR descriptions, keep each prose paragraph or list item
+  on one physical line and let the hosting platform soft-wrap it. Do not
+  hard-wrap prose. Preserve line breaks and indentation inside code blocks.
 - Fenced code blocks with language hints (```python, ```toml, ```console).
 - Put long tracebacks and logs inside a `<details>` block so the report stays
   scannable.
