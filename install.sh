@@ -24,10 +24,12 @@ stow -d dotfiles -t ~/.ipython/profile_default ipython_profile_default
 stow -t ~ scripts
 stow -t ~ config_files
 
-# The contents of agents/ (skills and the like) are not specific to any one
-# coding agent, so the same tree gets stowed into every harness that reads it.
+# Codex scans collections recursively, so new skills need no Stow refresh.
+bash agents/install-skills.sh "${HOME}/.agents"
+
+# Claude Code scans immediate skill directories, so keep its flat Stow layout.
 readonly AGENT_HOMES=(
-"${HOME}/.claude"
+    "${HOME}/.claude"
 )
 
 for agent_home in "${AGENT_HOMES[@]}"; do
