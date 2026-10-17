@@ -18,9 +18,22 @@
         ("CANCELED" (:inherit org-done :weight bold :foreground "red"))
         ))
 
-;; Automatically use visual-line-mode in org / text files
-;; NOTE: I think this doesn't work
+;; Automatically use visual-line-mode in org / text files (org-mode derives
+;; from text-mode, so this covers .org files too).
 (add-hook 'text-mode-hook #'visual-line-mode)
+
+;; When visual-line-mode is on, make j/k (and up/down) move by visual lines,
+;; like `nnoremap j gj` / `nnoremap k gk` in vim. These are evil "minor mode"
+;; bindings, so they only apply in buffers where visual-line-mode is active and
+;; can be defined here, after evil is loaded. (The usual alternative,
+;; `evil-respect-visual-line-mode', only works if set *before* evil loads,
+;; which is why setting it in user-config has no effect.)
+(with-eval-after-load 'evil
+  (evil-define-minor-mode-key 'motion 'visual-line-mode
+    "j" #'evil-next-visual-line
+    "k" #'evil-previous-visual-line
+    (kbd "<down>") #'evil-next-visual-line
+    (kbd "<up>") #'evil-previous-visual-line))
 
 ;; Move the current subtree to one of the archival headers
 (defun my/org-move-subtree-to-state ()
