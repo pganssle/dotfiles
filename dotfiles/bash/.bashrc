@@ -192,6 +192,14 @@ _add_to_prompt_command "history -a"
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Run Emacs with Xlib's own compose-key handling instead of the ibus XIM bridge
+# (ibus-x11), which silently drops some compose sequences such as
+# Compose - - - (em dash). Emacs is the only X11/XIM client on the system; every
+# other app talks to ibus through its GTK/Qt modules, which are unaffected.
+# The same override is in ~/.local/share/applications/emacs.desktop for the
+# application launcher.
+alias emacs='XMODIFIERS=@im=local emacs'
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
