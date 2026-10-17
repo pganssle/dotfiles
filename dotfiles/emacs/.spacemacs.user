@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; Manually edited portion of ~/.spacemacs
 
 ;; Set TODO states
